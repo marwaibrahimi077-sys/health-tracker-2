@@ -1,0 +1,273 @@
+/* Styles for Student Health & Wellness Tracker
+   Color theme: white background, purple and blue highlights
+   Fonts: Inter (from Google)
+   Comments explain layout, variables, and responsive rules.
+*/
+
+/* CSS variables for consistent theme */
+:root{
+  --bg: #ffffff;
+  --text: #0f1724;
+  --muted: #6b7280;
+  --purple: #6C5CE7;
+  --blue: #00A3FF;
+  --accent-gradient: linear-gradient(135deg,var(--purple),var(--blue));
+  --card: #ffffff;
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(15,23,36,0.08);
+  --glass: rgba(255,255,255,0.6);
+}
+
+/* Basic reset and layout */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+
+/* Container constrains content */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:24px;
+}
+
+/* Header */
+.site-header{
+  border-bottom:1px solid #eef2ff;
+  background:linear-gradient(180deg, rgba(108,92,231,0.04), transparent);
+  position:sticky;
+  top:0;
+  z-index:40;
+}
+.header-inner{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+}
+.site-title{
+  margin:10px 0;
+  font-size:18px;
+  font-weight:700;
+  color:var(--purple);
+  letter-spacing:0.2px;
+}
+
+/* Main nav links */
+.main-nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav-link{
+  text-decoration:none;
+  color:var(--muted);
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+  transition:all .18s ease;
+}
+.nav-link:hover{color:var(--purple); transform:translateY(-2px)}
+@media(max-width:720px){
+  .main-nav{display:none} /* cleaner mobile header */
+}
+
+/* Hero */
+.hero{
+  padding:36px 0;
+  background:linear-gradient(180deg, rgba(108,92,231,0.06), rgba(0,163,255,0.02));
+}
+.hero-inner{
+  display:flex;
+  gap:24px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.hero-title{
+  margin:0;
+  font-size:28px;
+  color:var(--purple);
+}
+.hero-desc{
+  color:var(--muted);
+  margin:12px 0 18px 0;
+  max-width:520px;
+}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap}
+.gradient-card{
+  width:220px;
+  height:220px;
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--accent-gradient);
+}
+.illustration{opacity:0.95}
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:0;
+  cursor:pointer;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:600;
+  transition:all .16s ease;
+  text-decoration:none;
+}
+.btn-primary{
+  background:var(--purple);
+  color:white;
+  box-shadow:0 8px 20px rgba(108,92,231,0.14);
+}
+.btn-primary:hover{transform:translateY(-3px); filter:brightness(1.03)}
+.btn-outline{
+  background:transparent;
+  color:var(--purple);
+  border:1px solid rgba(108,92,231,0.12);
+}
+.btn-outline:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,163,255,0.06)}
+
+/* Main content sections */
+.main-content{padding:24px 0}
+.section{margin-bottom:28px}
+.card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+
+/* Section headings */
+.section-title{margin:0 0 8px 0; color:var(--purple)}
+.section-desc{margin:0 0 16px 0; color:var(--muted)}
+
+/* Forms layout */
+.input-form{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-bottom:14px;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  position:relative;
+}
+.field input[type="number"],
+.field input[type="date"],
+.field select,
+.field input[type="text"]{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #e6e9f2;
+  background:#ffffff;
+  font-size:14px;
+  outline:none;
+}
+.field input:focus, .field select:focus{
+  box-shadow:0 6px 18px rgba(0,163,255,0.07);
+  border-color:var(--blue);
+}
+.checklist{grid-column:1 / -1; display:flex; gap:12px; flex-wrap:wrap}
+.checklist label{display:flex; gap:8px; align-items:center; font-size:14px; color:var(--muted);}
+
+/* Error messages */
+.error{
+  color:#e11d48;
+  font-size:12px;
+  height:14px;
+}
+
+/* Form actions */
+.form-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:10px;
+  grid-column:1 / -1;
+}
+
+/* Charts layout */
+.chart-grid{
+  display:grid;
+  gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  margin-top:16px;
+}
+.chart-grid.single {grid-template-columns:1fr}
+.chart-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.95));
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #f3f5ff;
+}
+.chart-title{margin:0 0 6px 0; color:var(--blue); font-size:14px}
+
+/* Tips */
+.tips{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  background:linear-gradient(90deg, rgba(108,92,231,0.05), rgba(0,163,255,0.03));
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* Summary grid */
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+}
+.summary-card{
+  padding:12px;
+  border-radius:10px;
+  background:#ffffff;
+  border:1px solid #f3f5ff;
+}
+.summary-card.full{grid-column:1 / -1}
+
+/* Share grid */
+.share-grid{
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:16px;
+  align-items:center;
+}
+.share-left{}
+.share-right{display:flex; align-items:center; justify-content:center}
+.qrcode{padding:12px; border-radius:10px; background:#fff; border:1px dashed #e6e9f2}
+.small-note{color:var(--muted); font-size:13px}
+
+/* Footer */
+.site-footer{
+  padding:16px 0;
+  margin-top:16px;
+  border-top:1px solid #eef2ff;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Responsive tweaks */
+@media(max-width:900px){
+  .hero-inner{flex-direction:column; align-items:flex-start}
+  .share-grid{grid-template-columns:1fr; grid-auto-rows:auto}
+  .hero-visual{align-self:center}
+}
+@media(max-width:520px){
+  .container{padding:16px}
+  .hero-title{font-size:22px}
+  .input-form{grid-template-columns:1fr}
+  .form-actions{flex-direction:column; align-items:stretch}
+  .header-inner{flex-direction:column; align-items:flex-start}
+  .site-title{font-size:16px}
+}
+
+/* Helpful micro-interactions (hover focus) */
+.chart-card:hover{transform:translateY(-4px); transition:all .18s ease}
+.field input::placeholder{color:#cbd5e1}

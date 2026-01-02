@@ -1,0 +1,296 @@
+ <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Health & Wellness Tracker</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js (v4) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Meta for site description -->
+  <meta name="description" content="Track daily habits and learn how sleep, water, screen time, exercise, mood and skin affect focus, skin, and well-being.">
+</head>
+<body>
+  <!-- Top navigation / header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="site-title">Student Health & Wellness Tracker</h1>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#focus" class="nav-link">Focus & Energy</a>
+        <a href="#skin" class="nav-link">Skin Health</a>
+        <a href="#mood" class="nav-link">Wellness & Mood</a>
+        <a href="#summary" class="nav-link">Summary & Insights</a>
+        <a href="#share" class="nav-link">Share</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h2 class="hero-title">How Daily Habits Affect Focus, Skin, and Well-Being</h2>
+        <p class="hero-desc">
+          Track your daily habits like sleep, water intake, screen time, exercise, mood, and skin condition to understand how they affect your focus, skin, and overall wellness.
+        </p>
+        <div class="hero-cta">
+          <a href="#focus" class="btn btn-primary">Start Tracking — Focus</a>
+          <a href="#summary" class="btn btn-outline">View Insights</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- decorative gradient card -->
+        <div class="gradient-card">
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration">
+            <rect width="220" height="220" rx="24" fill="url(#g)"/>
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6C5CE7"/>
+                <stop offset="1" stop-color="#00A3FF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container main-content">
+
+    <!-- Focus & Energy Section -->
+    <section id="focus" class="card section">
+      <h3 class="section-title">Focus & Energy</h3>
+      <p class="section-desc">Enter daily habits to see how sleep, screen time and exercise relate to focus.</p>
+
+      <form id="focus-form" class="input-form" novalidate>
+        <!-- Sleep hours -->
+        <label class="field">
+          <span>Sleep hours</span>
+          <input type="number" id="focus-sleep" min="0" max="24" step="0.1" placeholder="e.g., 8" required>
+          <small class="error" id="focus-sleep-error"></small>
+        </label>
+
+        <!-- Screen time -->
+        <label class="field">
+          <span>Screen time (hours)</span>
+          <input type="number" id="focus-screen" min="0" max="24" step="0.1" placeholder="e.g., 3" required>
+          <small class="error" id="focus-screen-error"></small>
+        </label>
+
+        <!-- Exercise -->
+        <label class="field">
+          <span>Exercise (minutes)</span>
+          <input type="number" id="focus-exercise" min="0" max="600" step="1" placeholder="e.g., 30" required>
+          <small class="error" id="focus-exercise-error"></small>
+        </label>
+
+        <!-- Energy / focus rating -->
+        <label class="field">
+          <span>Energy / Focus (1–10)</span>
+          <input type="number" id="focus-rating" min="1" max="10" step="1" placeholder="e.g., 7" required>
+          <small class="error" id="focus-rating-error"></small>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Focus Entry</button>
+          <button type="button" id="focus-clear" class="btn btn-outline">Clear Focus Data</button>
+        </div>
+      </form>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h4 class="chart-title">Sleep vs Focus (Scatter)</h4>
+          <canvas id="chart-sleep-focus" aria-label="Sleep vs focus chart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <h4 class="chart-title">Screen Time vs Focus (Scatter)</h4>
+          <canvas id="chart-screen-focus" aria-label="Screen vs focus chart"></canvas>
+        </div>
+      </div>
+
+      <div id="focus-tips" class="tips">
+        <!-- Tips generated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Skin Health Section -->
+    <section id="skin" class="card section">
+      <h3 class="section-title">Skin Health</h3>
+      <p class="section-desc">Track habits that can influence skin condition. Tips are friendly — not medical advice.</p>
+
+      <form id="skin-form" class="input-form" novalidate>
+        <label class="field">
+          <span>Sleep hours</span>
+          <input type="number" id="skin-sleep" min="0" max="24" step="0.1" placeholder="e.g., 7.5" required>
+          <small class="error" id="skin-sleep-error"></small>
+        </label>
+
+        <label class="field">
+          <span>Water intake (cups)</span>
+          <input type="number" id="skin-water" min="0" max="50" step="0.1" placeholder="e.g., 6" required>
+          <small class="error" id="skin-water-error"></small>
+        </label>
+
+        <label class="field">
+          <span>Stress level (1–10)</span>
+          <input type="number" id="skin-stress" min="1" max="10" step="1" placeholder="e.g., 4" required>
+          <small class="error" id="skin-stress-error"></small>
+        </label>
+
+        <label class="field">
+          <span>Skin condition</span>
+          <select id="skin-condition" required>
+            <option value="">Select condition</option>
+            <option value="clear">Clear</option>
+            <option value="dry">Dry</option>
+            <option value="irritated">Irritated</option>
+          </select>
+          <small class="error" id="skin-condition-error"></small>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Skin Entry</button>
+          <button type="button" id="skin-clear" class="btn btn-outline">Clear Skin Data</button>
+        </div>
+      </form>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h4 class="chart-title">Water vs Skin Score</h4>
+          <canvas id="chart-water-skin"></canvas>
+        </div>
+        <div class="chart-card">
+          <h4 class="chart-title">Stress vs Skin Score</h4>
+          <canvas id="chart-stress-skin"></canvas>
+        </div>
+      </div>
+
+      <div id="skin-tips" class="tips"></div>
+    </section>
+
+    <!-- Wellness & Mood Section -->
+    <section id="mood" class="card section">
+      <h3 class="section-title">Wellness & Mood</h3>
+      <p class="section-desc">Record daily mood and common stress triggers. View weekly trends.</p>
+
+      <form id="mood-form" class="input-form" novalidate>
+        <label class="field">
+          <span>Date</span>
+          <input type="date" id="mood-date" required>
+          <small class="error" id="mood-date-error"></small>
+        </label>
+
+        <label class="field">
+          <span>Daily mood</span>
+          <select id="mood-value" required>
+            <option value="">Select mood</option>
+            <option value="happy">Happy</option>
+            <option value="calm">Calm</option>
+            <option value="stressed">Stressed</option>
+            <option value="tired">Tired</option>
+          </select>
+          <small class="error" id="mood-value-error"></small>
+        </label>
+
+        <fieldset class="field checklist">
+          <legend>Stress triggers (check all that apply)</legend>
+          <label><input type="checkbox" name="triggers" value="school"> School / homework</label>
+          <label><input type="checkbox" name="triggers" value="social"> Social media / friends</label>
+          <label><input type="checkbox" name="triggers" value="sleep"> Lack of sleep</label>
+          <label><input type="checkbox" name="triggers" value="timing"> Busy schedule</label>
+          <label><input type="checkbox" name="triggers" value="other"> Other</label>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Mood Entry</button>
+          <button type="button" id="mood-clear" class="btn btn-outline">Clear Mood Data</button>
+        </div>
+      </form>
+
+      <div class="chart-grid single">
+        <div class="chart-card fullwidth">
+          <h4 class="chart-title">Weekly Mood Trends</h4>
+          <canvas id="chart-mood-trend"></canvas>
+        </div>
+      </div>
+
+      <div id="mood-tips" class="tips"></div>
+    </section>
+
+    <!-- Summary & Insights Section -->
+    <section id="summary" class="card section">
+      <h3 class="section-title">Summary & Insights</h3>
+      <p class="section-desc">See combined trends from your entries and quick takeaways.</p>
+
+      <div class="summary-grid">
+
+        <div class="summary-card">
+          <h4>Average Focus by Sleep</h4>
+          <canvas id="chart-summary-sleep"></canvas>
+        </div>
+
+        <div class="summary-card">
+          <h4>Skin Condition Distribution</h4>
+          <canvas id="chart-summary-skin"></canvas>
+        </div>
+
+        <div class="summary-card full">
+          <h4>Main Insights</h4>
+          <p id="summary-insights">No data yet — add entries to see insights. When you submit data in Focus, Skin, and Mood sections, this area will combine the results and highlight patterns such as how sleep relates to focus and skin.</p>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button id="export-data" class="btn btn-primary">Export Data (JSON)</button>
+      </div>
+    </section>
+
+    <!-- QR Code / Share Section -->
+    <section id="share" class="card section">
+      <h3 class="section-title">Share & QR Code</h3>
+      <p class="section-desc">Generate a QR code to share this tracker with friends or teachers.</p>
+
+      <div class="share-grid">
+        <div class="share-left">
+          <label class="field">
+            <span>Link to share</span>
+            <input type="text" id="share-link" readonly>
+          </label>
+          <div class="form-actions">
+            <button id="generate-qr" class="btn btn-primary">Generate QR Code</button>
+            <button id="download-qr" class="btn btn-outline">Download QR (PNG)</button>
+          </div>
+        </div>
+
+        <div class="share-right">
+          <div id="qrcode" class="qrcode" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <p class="small-note">Tip: Save or print the QR code so classmates can easily open the tracker on their phone.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Student Health & Wellness Tracker — Built for learning. Not medical advice.</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
